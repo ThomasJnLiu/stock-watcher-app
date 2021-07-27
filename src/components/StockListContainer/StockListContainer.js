@@ -8,7 +8,13 @@ const StockListContainer = (props) => {
           {props.stockList.map((item) => {
             return (
               <li>
-                {item.stockName.description} price: {item.stockPrice}
+                {item.stockName.description} price: {item.stockPrice.c}
+                <br />
+                high: {item.stockPrice.h}
+                <br />
+                low: {item.stockPrice.l}
+                <br />
+                open: {item.stockPrice.o}
               </li>
             );
           })}

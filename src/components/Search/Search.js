@@ -14,10 +14,9 @@ const Search = (props) => {
     const price = await axios(
       `https://finnhub.io/api/v1/quote?symbol=${userInput}&token=c14ongv48v6st2755it0`
     );
-
     props.addStock({
       stockName: info.data.result[0],
-      stockPrice: price.data.c,
+      stockPrice: price.data,
     });
   };
   return (

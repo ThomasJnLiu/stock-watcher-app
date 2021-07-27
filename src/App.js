@@ -44,7 +44,12 @@ function App() {
           // new price from api being added into new object
           const updatedStockInfo = {
             stockName: stockQuery.stockName,
-            stockPrice: price.data.c + seconds,
+            stockPrice: {
+              c: price.data.c + seconds,
+              h: price.data.h,
+              l: price.data.l,
+              o: price.data.o,
+            },
           };
 
           const indexToReplace = userStockList.findIndex(
