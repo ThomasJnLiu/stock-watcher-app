@@ -1,4 +1,5 @@
 import React from "react";
+import classes from "./StockListContainer.module.css";
 
 const StockListContainer = (props) => {
   return (
@@ -15,6 +16,13 @@ const StockListContainer = (props) => {
                 low: {item.stockPrice.l}
                 <br />
                 open: {item.stockPrice.o}
+                <button
+                  onClick={() => {
+                    props.removeStock(item.stockName);
+                  }}
+                >
+                  Remove
+                </button>
               </li>
             );
           })}

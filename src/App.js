@@ -25,6 +25,15 @@ function App() {
     });
   };
 
+  const removeStock = (stockSymbolToRemove) => {
+    setUserStockList((prevState) => {
+      let updatedStockList = [...prevState];
+      updatedStockList = updatedStockList.filter(
+        (item) => item.stockName !== stockSymbolToRemove
+      );
+      return updatedStockList;
+    });
+  };
   const updateStockPrice = (stockInfo, index) => {
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
@@ -45,7 +54,7 @@ function App() {
           const updatedStockInfo = {
             stockName: stockQuery.stockName,
             stockPrice: {
-              c: price.data.c + seconds,
+              c: price.data.c,
               h: price.data.h,
               l: price.data.l,
               o: price.data.o,
@@ -72,17 +81,17 @@ function App() {
       setTime(
         today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
       );
-    }, 5000);
+    }, 10000);
   }, [seconds]);
 
   return (
     <div className="App">
       <Search addStock={addStock} />
-      <StockListContainer stockList={userStockList} />
-      <p className={updated ? `${classes["blink-on"]}` : undefined}>
+      <StockListContainer stockList={userStockList} removeStock={removeStock} />
+      {/* <p className={updated ? `${classes["blink-on"]}` : undefined}>
         {seconds}
-      </p>
-      {time}
+      </p> */}
+      last updated at: {time}
     </div>
   );
 }
