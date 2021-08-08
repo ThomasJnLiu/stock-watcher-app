@@ -12,7 +12,7 @@ function App() {
   const [userStockList, setUserStockList] = useState([]);
   const [seconds, setSeconds] = useState(0);
   const [time, setTime] = useState();
-  const [loading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   //temp state delete later
   const [updated, setUpdated] = useState(true);
 
@@ -94,9 +94,13 @@ function App() {
       <Header />
 
       <div className={classes.main}>
-        <Search addStock={addStock} setLoading={setIsLoading} />
+        <Search
+          addStock={addStock}
+          setLoading={setIsLoading}
+          isLoading={isLoading}
+        />
         last updated at:{" "}
-        {loading && (
+        {isLoading && (
           <img
             className={classes["loading-spinner"]}
             src={loadingSpinner}

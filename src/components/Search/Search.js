@@ -8,6 +8,9 @@ const Search = (props) => {
 
   const searchHandler = async (event) => {
     event.preventDefault();
+    if (props.isLoading) {
+      return;
+    }
     props.setLoading(true);
     const info = await axios(
       `https://finnhub.io/api/v1/search?q=${userInput}&token=c14ongv48v6st2755it0`
