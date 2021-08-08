@@ -1,0 +1,11 @@
+.search-form {
+  margin: auto;
+}
+
+.search-form input {
+  width: 80%;
+}
+
+.search-form button {
+  width: 19%;
+}

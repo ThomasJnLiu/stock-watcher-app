@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import classes from "./Search.module.css";
+
 const Search = (props) => {
   const [userInput, setUserInput] = useState();
 
@@ -21,7 +23,7 @@ const Search = (props) => {
     props.setLoading(false);
   };
   return (
-    <div>
+    <div className={classes["search-form"]}>
       <form>
         <input
           type="text"
