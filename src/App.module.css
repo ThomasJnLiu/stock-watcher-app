@@ -1,6 +1,11 @@
-.blink-on {
-  color: red;
+.main {
+  display: block;
+  margin: auto auto;
+  width: 50%;
 }
-.blink-off {
-  color: black;
+
+.loading-spinner {
+  display: block;
+  width: 7%;
+  margin: 1em auto;
 }

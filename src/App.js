@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
 import Search from "./components/Search/Search";
 import StockListContainer from "./components/StockListContainer/StockListContainer";
+import Header from "./components/Header/Header";
+
 import classes from "./App.module.css";
 import axios from "axios";
+
+import loadingSpinner from "./loadingSpinner.gif";
 
 function App() {
   const [userStockList, setUserStockList] = useState([]);
   const [seconds, setSeconds] = useState(0);
   const [time, setTime] = useState();
+  const [loading, setIsLoading] = useState(false);
   //temp state delete later
   const [updated, setUpdated] = useState(true);
 
@@ -85,13 +90,18 @@ function App() {
   }, [seconds]);
 
   return (
-    <div className="App">
-      <Search addStock={addStock} />
+    <div className={classes.main}>
+      <Header />
+      <Search addStock={addStock} setLoading={setIsLoading} />
+      last updated at:{" "}
+      {loading && (
+        <img
+          className={classes["loading-spinner"]}
+          src={loadingSpinner}
+          alt="loading"
+        />
+      )}
       <StockListContainer stockList={userStockList} removeStock={removeStock} />
-      {/* <p className={updated ? `${classes["blink-on"]}` : undefined}>
-        {seconds}
-      </p> */}
-      last updated at: {time}
     </div>
   );
 }

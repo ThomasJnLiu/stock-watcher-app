@@ -6,7 +6,7 @@ const Search = (props) => {
 
   const searchHandler = async (event) => {
     event.preventDefault();
-
+    props.setLoading(true);
     const info = await axios(
       `https://finnhub.io/api/v1/search?q=${userInput}&token=c14ongv48v6st2755it0`
     );
@@ -18,6 +18,7 @@ const Search = (props) => {
       stockName: info.data.result[0],
       stockPrice: price.data,
     });
+    props.setLoading(false);
   };
   return (
     <div>
