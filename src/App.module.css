@@ -1,3 +1,7 @@
+html {
+  /* background-color: #f8f8f8; */
+  color: #121212;
+}
 .main {
   display: block;
   margin: auto auto;

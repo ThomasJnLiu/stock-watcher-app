@@ -1,0 +1,10 @@
+header {
+  background-color: #907163;
+  padding: 2% 10%;
+  display: flex;
+  color: #ffffff;
+}
+
+header h1 {
+  margin: 0;
+}

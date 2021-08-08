@@ -90,19 +90,25 @@ function App() {
   }, [seconds]);
 
   return (
-    <div className={classes.main}>
+    <>
       <Header />
-      <Search addStock={addStock} setLoading={setIsLoading} />
-      last updated at:{" "}
-      {loading && (
-        <img
-          className={classes["loading-spinner"]}
-          src={loadingSpinner}
-          alt="loading"
+
+      <div className={classes.main}>
+        <Search addStock={addStock} setLoading={setIsLoading} />
+        last updated at:{" "}
+        {loading && (
+          <img
+            className={classes["loading-spinner"]}
+            src={loadingSpinner}
+            alt="loading"
+          />
+        )}
+        <StockListContainer
+          stockList={userStockList}
+          removeStock={removeStock}
         />
-      )}
-      <StockListContainer stockList={userStockList} removeStock={removeStock} />
-    </div>
+      </div>
+    </>
   );
 }
 
