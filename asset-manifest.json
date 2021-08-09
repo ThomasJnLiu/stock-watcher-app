@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/stock-watcher-app/static/css/main.dd58b6a1.chunk.css",
+    "main.js": "/stock-watcher-app/static/js/main.fdfb9f30.chunk.js",
+    "main.js.map": "/stock-watcher-app/static/js/main.fdfb9f30.chunk.js.map",
+    "runtime-main.js": "/stock-watcher-app/static/js/runtime-main.b456667d.js",
+    "runtime-main.js.map": "/stock-watcher-app/static/js/runtime-main.b456667d.js.map",
+    "static/js/2.faab9dc6.chunk.js": "/stock-watcher-app/static/js/2.faab9dc6.chunk.js",
+    "static/js/2.faab9dc6.chunk.js.map": "/stock-watcher-app/static/js/2.faab9dc6.chunk.js.map",
+    "static/js/3.c6876d3f.chunk.js": "/stock-watcher-app/static/js/3.c6876d3f.chunk.js",
+    "static/js/3.c6876d3f.chunk.js.map": "/stock-watcher-app/static/js/3.c6876d3f.chunk.js.map",
+    "index.html": "/stock-watcher-app/index.html",
+    "static/css/main.dd58b6a1.chunk.css.map": "/stock-watcher-app/static/css/main.dd58b6a1.chunk.css.map",
+    "static/js/2.faab9dc6.chunk.js.LICENSE.txt": "/stock-watcher-app/static/js/2.faab9dc6.chunk.js.LICENSE.txt",
+    "static/media/loadingSpinner.c7d9f081.gif": "/stock-watcher-app/static/media/loadingSpinner.c7d9f081.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b456667d.js",
+    "static/js/2.faab9dc6.chunk.js",
+    "static/css/main.dd58b6a1.chunk.css",
+    "static/js/main.fdfb9f30.chunk.js"
+  ]
+}
