@@ -12,11 +12,11 @@ const Search = (props) => {
       return;
     }
     props.setLoading(true);
-    const info = await axios(
+    const info = await axios.get(
       `https://finnhub.io/api/v1/search?q=${userInput}&token=c14ongv48v6st2755it0`
     );
 
-    const price = await axios(
+    const price = await axios.get(
       `https://finnhub.io/api/v1/quote?symbol=${userInput}&token=c14ongv48v6st2755it0`
     );
     props.addStock({
@@ -32,7 +32,7 @@ const Search = (props) => {
           type="text"
           onChange={(event) => setUserInput(event.target.value)}
         />
-        <button onClick={searchHandler}>Search Stocks</button>
+        <button onClick={searchHandler}>Search</button>
       </form>
     </div>
   );

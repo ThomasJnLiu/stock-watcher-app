@@ -18,6 +18,13 @@ function App() {
 
   let today = new Date();
 
+  // const userStocks = axios
+  //   .get(
+  //     `https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json`
+  //   )
+  //   .then((response) => {
+  //     console.log(response);
+  //   });
   const addStock = (stockInfo) => {
     console.log(stockInfo);
     setUserStockList((prevState) => {
@@ -99,7 +106,7 @@ function App() {
           setLoading={setIsLoading}
           isLoading={isLoading}
         />
-        last updated at:{" "}
+        last updated at: {time}
         {isLoading && (
           <img
             className={classes["loading-spinner"]}

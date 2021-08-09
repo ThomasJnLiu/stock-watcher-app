@@ -1,0 +1,25 @@
+.stock-list-card {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #a08282;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+  padding: 1rem;
+  border-radius: 5px;
+  align-items: center;
+  margin: 1em 0;
+}
+
+.stock-list-card h2 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.stock-list-card h3 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.basic-info {
+  width: 50%;
+}

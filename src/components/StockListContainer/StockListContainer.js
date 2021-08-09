@@ -1,4 +1,5 @@
 import React from "react";
+import StockListCard from "../StockListCard/StockListCard";
 import classes from "./StockListContainer.module.css";
 
 const StockListContainer = (props) => {
@@ -8,22 +9,12 @@ const StockListContainer = (props) => {
         <ul>
           {props.stockList.map((item) => {
             return (
-              <li>
-                {item.stockName.description} price: {item.stockPrice.c}
-                <br />
-                high: {item.stockPrice.h}
-                <br />
-                low: {item.stockPrice.l}
-                <br />
-                open: {item.stockPrice.o}
-                <button
-                  onClick={() => {
-                    props.removeStock(item.stockName);
-                  }}
-                >
-                  Remove
-                </button>
-              </li>
+              <StockListCard
+                description={item.stockName.description}
+                stockPrice={item.stockPrice}
+                stockName={item.stockName}
+                removeStock={props.removeStock}
+              />
             );
           })}
         </ul>
