@@ -14,6 +14,7 @@ const StockListContainer = (props) => {
                 stockPrice={item.stockPrice}
                 stockName={item.stockName}
                 removeStock={props.removeStock}
+                key={item.stockName.description}
               />
             );
           })}

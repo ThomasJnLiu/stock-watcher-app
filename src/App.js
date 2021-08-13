@@ -10,34 +10,69 @@ import loadingSpinner from "./loadingSpinner.gif";
 
 function App() {
   const [userStockList, setUserStockList] = useState([]);
-  const [seconds, setSeconds] = useState(0);
-  const [time, setTime] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  //temp state delete later
-  const [updated, setUpdated] = useState(true);
 
   let today = new Date();
+  let curTime =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  // const userStocks = axios
-  //   .get(
-  //     `https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json`
-  //   )
-  //   .then((response) => {
-  //     console.log(response);
-  //   });
-  const addStock = (stockInfo) => {
-    console.log(stockInfo);
+  const fetchStocks = () => {
+    axios
+      .get(
+        `https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json`
+      )
+      .then((response) => {
+        // console.log(response.data);
+        // updateLocalStocks(response);
+      });
+  };
+
+  // const updateLocalStocks = (response) => {
+  //   const databaseStocks = response.data;
+  //   const loadedStocks = [];
+
+  //   for (const key in databaseStocks) {
+  //     loadedStocks.push({
+  //       stockName: databaseStocks[key].stockName,
+  //       stockPrice: databaseStocks[key].stockPrice,
+  //     });
+  //   }
+  //   console.log(loadedStocks);
+  //   setUserStockList(loadedStocks);
+  // };
+
+  const addStock = async (stockInfo) => {
+    // const response = await axios.post(
+    //   "https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json",
+    //   {
+    //     stockName: stockInfo.stockName,
+    //     stockPrice: 0,
+    //   }
+    // );
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
 
       /* add duplicate checking code here */
 
       updatedStockList.push(stockInfo);
+
       return updatedStockList;
     });
   };
 
-  const removeStock = (stockSymbolToRemove) => {
+  const removeStock = async (stockSymbolToRemove) => {
+    // const response = await axios.delete(
+    //   "https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json",
+    //   {
+    //     stockName: {
+    //       displaySymbol: stockSymbolToRemove,
+    //     },
+    //   }
+    // );
+    // setUserStockList([]);
+
+    // await console.log(response);
+
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
       updatedStockList = updatedStockList.filter(
@@ -45,7 +80,9 @@ function App() {
       );
       return updatedStockList;
     });
+    console.log(userStockList);
   };
+
   const updateStockPrice = (stockInfo, index) => {
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
@@ -54,10 +91,13 @@ function App() {
       return updatedStockList;
     });
   };
+
   useEffect(() => {
     setTimeout(() => {
-      setSeconds((seconds) => seconds + 1);
+      console.log("cur length " + userStockList.length);
+      console.log(userStockList);
       if (userStockList.length > 0) {
+        //function to query all stocks in list to update prices
         const searchStockPrice = async (stockQuery) => {
           const price = await axios(
             `https://finnhub.io/api/v1/quote?symbol=${stockQuery.stockName.displaySymbol}&token=c14ongv48v6st2755it0`
@@ -73,6 +113,7 @@ function App() {
             },
           };
 
+          // get index of stock whose price has been updated
           const indexToReplace = userStockList.findIndex(
             (stock) =>
               stock.stockName.displaySymbol ===
@@ -86,27 +127,19 @@ function App() {
           searchStockPrice(userListStock)
         );
       }
-      setUpdated((prevState) => {
-        return !prevState;
-      });
-
-      setTime(
-        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
-      );
     }, 10000);
-  }, [seconds]);
+  }, [userStockList]);
 
   return (
     <>
       <Header />
-
       <div className={classes.main}>
         <Search
           addStock={addStock}
           setLoading={setIsLoading}
           isLoading={isLoading}
         />
-        last updated at: {time}
+        last updated at: {curTime}
         {isLoading && (
           <img
             className={classes["loading-spinner"]}
