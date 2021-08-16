@@ -93,7 +93,10 @@ function App() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    var effectId = Math.random();
+    console.log("timeout set " + effectId);
+    const updateInterval = setInterval(() => {
+      console.log("effect id " + effectId);
       console.log("cur length " + userStockList.length);
       console.log(userStockList);
       if (userStockList.length > 0) {
@@ -127,7 +130,12 @@ function App() {
           searchStockPrice(userListStock)
         );
       }
-    }, 10000);
+    }, 5000);
+
+    // clear interval on unmount or next render, prevents multiple intervals existing at once
+    return () => {
+      clearInterval(updateInterval);
+    };
   }, [userStockList]);
 
   return (
