@@ -7,6 +7,7 @@ import classes from "./App.module.css";
 import axios from "axios";
 
 import loadingSpinner from "./loadingSpinner.gif";
+import instance from "./firebase/instance";
 
 function App() {
   const [userStockList, setUserStockList] = useState([]);
@@ -16,17 +17,24 @@ function App() {
   let curTime =
     today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  const fetchStocks = () => {
-    axios
-      .get(
-        `https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json`
-      )
-      .then((response) => {
-        // console.log(response.data);
-        // updateLocalStocks(response);
-      });
-  };
+  useEffect(() => {
+    instance.get("/results.json").then((response) => {
+      console.log(response.data);
 
+      const databaseStocks = response.data;
+      const loadedStocks = [];
+
+      for (const key in databaseStocks) {
+        loadedStocks.push({
+          stockName: databaseStocks[key].stockName,
+          stockPrice: databaseStocks[key].stockPrice,
+          id: key,
+        });
+      }
+      console.log(loadedStocks);
+      setUserStockList(loadedStocks);
+    });
+  }, []);
   // const updateLocalStocks = (response) => {
   //   const databaseStocks = response.data;
   //   const loadedStocks = [];
@@ -42,41 +50,39 @@ function App() {
   // };
 
   const addStock = async (stockInfo) => {
-    // const response = await axios.post(
-    //   "https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json",
-    //   {
-    //     stockName: stockInfo.stockName,
-    //     stockPrice: 0,
-    //   }
-    // );
-    setUserStockList((prevState) => {
-      let updatedStockList = [...prevState];
+    const data = {
+      stockName: stockInfo.stockName,
+      stockPrice: 0,
+    };
 
-      /* add duplicate checking code here */
+    instance.post("/results.json", data).then((response) => {
+      console.log(response);
 
-      updatedStockList.push(stockInfo);
+      // create new results obj, append id to stock info for use in delete req
+      const results = { ...stockInfo, id: response.data.name };
 
-      return updatedStockList;
+      // add results obj to state array
+      setUserStockList((prevState) => {
+        let updatedStockList = [...prevState];
+
+        /* add duplicate checking code here */
+
+        updatedStockList.push(results);
+
+        return updatedStockList;
+      });
     });
   };
 
-  const removeStock = async (stockSymbolToRemove) => {
-    // const response = await axios.delete(
-    //   "https://stock-watcher-app-edfee-default-rtdb.firebaseio.com/stocks.json",
-    //   {
-    //     stockName: {
-    //       displaySymbol: stockSymbolToRemove,
-    //     },
-    //   }
-    // );
-    // setUserStockList([]);
-
+  const removeStock = async (stockIdToRemove) => {
     // await console.log(response);
-
+    instance.delete(`/results/${stockIdToRemove}.json`).then((response) => {
+      console.log(response);
+    });
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
       updatedStockList = updatedStockList.filter(
-        (item) => item.stockName !== stockSymbolToRemove
+        (item) => item.id !== stockIdToRemove
       );
       return updatedStockList;
     });
@@ -93,12 +99,10 @@ function App() {
   };
 
   useEffect(() => {
-    var effectId = Math.random();
-    console.log("timeout set " + effectId);
+    // var effectId = Math.random();
+    // console.log("timeout set " + effectId);
     const updateInterval = setInterval(() => {
-      console.log("effect id " + effectId);
-      console.log("cur length " + userStockList.length);
-      console.log(userStockList);
+      console.log("updating stocks...");
       if (userStockList.length > 0) {
         //function to query all stocks in list to update prices
         const searchStockPrice = async (stockQuery) => {
@@ -130,7 +134,7 @@ function App() {
           searchStockPrice(userListStock)
         );
       }
-    }, 5000);
+    }, 10000);
 
     // clear interval on unmount or next render, prevents multiple intervals existing at once
     return () => {

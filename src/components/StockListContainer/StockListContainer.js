@@ -15,6 +15,7 @@ const StockListContainer = (props) => {
                 stockName={item.stockName}
                 removeStock={props.removeStock}
                 key={item.stockName.description}
+                id={item.id}
               />
             );
           })}
