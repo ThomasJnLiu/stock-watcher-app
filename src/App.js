@@ -7,7 +7,7 @@ import classes from "./App.module.css";
 import axios from "axios";
 
 import loadingSpinner from "./loadingSpinner.gif";
-import instance from "./firebase/instance";
+// import instance from "./firebase/instance";
 
 function App() {
   const [userStockList, setUserStockList] = useState([]);
@@ -17,24 +17,24 @@ function App() {
   let curTime =
     today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  useEffect(() => {
-    instance.get("/results.json").then((response) => {
-      console.log(response.data);
+  // useEffect(() => {
+  //   instance.get("/results.json").then((response) => {
+  //     console.log(response.data);
 
-      const databaseStocks = response.data;
-      const loadedStocks = [];
+  //     const databaseStocks = response.data;
+  //     const loadedStocks = [];
 
-      for (const key in databaseStocks) {
-        loadedStocks.push({
-          stockName: databaseStocks[key].stockName,
-          stockPrice: databaseStocks[key].stockPrice,
-          id: key,
-        });
-      }
-      console.log(loadedStocks);
-      setUserStockList(loadedStocks);
-    });
-  }, []);
+  //     for (const key in databaseStocks) {
+  //       loadedStocks.push({
+  //         stockName: databaseStocks[key].stockName,
+  //         stockPrice: databaseStocks[key].stockPrice,
+  //         id: key,
+  //       });
+  //     }
+  //     console.log(loadedStocks);
+  //     setUserStockList(loadedStocks);
+  //   });
+  // }, []);
   // const updateLocalStocks = (response) => {
   //   const databaseStocks = response.data;
   //   const loadedStocks = [];
@@ -49,58 +49,64 @@ function App() {
   //   setUserStockList(loadedStocks);
   // };
 
+  // Retrieve saved user stock list from localStorage
+  useEffect(() => {
+    const localStorageUserStocks = JSON.parse(
+      localStorage.getItem("userStocks")
+    );
+    console.log(localStorageUserStocks);
+    setUserStockList(localStorageUserStocks);
+  }, []);
   const addStock = async (stockInfo) => {
     const data = {
       stockName: stockInfo.stockName,
-      stockPrice: 0,
+      stockPrice: stockInfo.stockPrice,
     };
 
-    instance.post("/results.json", data).then((response) => {
-      console.log(response);
+    // add results obj to state array
+    setUserStockList((prevState) => {
+      let updatedStockList = [...prevState];
 
-      // create new results obj, append id to stock info for use in delete req
-      const results = { ...stockInfo, id: response.data.name };
+      // duplicate checking code
+      if (
+        updatedStockList.some(
+          (stock) =>
+            stock.stockName.description === stockInfo.stockName.description
+        )
+      ) {
+        console.log("stock already added");
+      } else {
+        updatedStockList.unshift(data);
+      }
+      localStorage.setItem("userStocks", JSON.stringify(updatedStockList));
 
-      // add results obj to state array
-      setUserStockList((prevState) => {
-        let updatedStockList = [...prevState];
-
-        /* add duplicate checking code here */
-
-        updatedStockList.push(results);
-
-        return updatedStockList;
-      });
+      return updatedStockList;
     });
   };
 
   const removeStock = async (stockIdToRemove) => {
-    // await console.log(response);
-    instance.delete(`/results/${stockIdToRemove}.json`).then((response) => {
-      console.log(response);
-    });
+    console.log(userStockList);
+
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
       updatedStockList = updatedStockList.filter(
-        (item) => item.id !== stockIdToRemove
+        (item) => item.stockName.description !== stockIdToRemove
       );
+      localStorage.setItem("userStocks", JSON.stringify(updatedStockList));
+
       return updatedStockList;
     });
-    console.log(userStockList);
   };
 
   const updateStockPrice = (stockInfo, index) => {
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
       updatedStockList[index].stockPrice = stockInfo.stockPrice;
-      // console.log(updatedStockList);
       return updatedStockList;
     });
   };
 
   useEffect(() => {
-    // var effectId = Math.random();
-    // console.log("timeout set " + effectId);
     const updateInterval = setInterval(() => {
       console.log("updating stocks...");
       if (userStockList.length > 0) {
