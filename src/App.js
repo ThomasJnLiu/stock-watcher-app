@@ -17,45 +17,18 @@ function App() {
   let curTime =
     today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-  // useEffect(() => {
-  //   instance.get("/results.json").then((response) => {
-  //     console.log(response.data);
-
-  //     const databaseStocks = response.data;
-  //     const loadedStocks = [];
-
-  //     for (const key in databaseStocks) {
-  //       loadedStocks.push({
-  //         stockName: databaseStocks[key].stockName,
-  //         stockPrice: databaseStocks[key].stockPrice,
-  //         id: key,
-  //       });
-  //     }
-  //     console.log(loadedStocks);
-  //     setUserStockList(loadedStocks);
-  //   });
-  // }, []);
-  // const updateLocalStocks = (response) => {
-  //   const databaseStocks = response.data;
-  //   const loadedStocks = [];
-
-  //   for (const key in databaseStocks) {
-  //     loadedStocks.push({
-  //       stockName: databaseStocks[key].stockName,
-  //       stockPrice: databaseStocks[key].stockPrice,
-  //     });
-  //   }
-  //   console.log(loadedStocks);
-  //   setUserStockList(loadedStocks);
-  // };
-
-  // Retrieve saved user stock list from localStorage
+  // retrieve saved user stock list from localStorage
   useEffect(() => {
     const localStorageUserStocks = JSON.parse(
       localStorage.getItem("userStocks")
     );
     console.log(localStorageUserStocks);
-    setUserStockList(localStorageUserStocks);
+    if (localStorageUserStocks === null) {
+      // set value so empty array checking on stocklistcontainer works
+      setUserStockList([]);
+    } else {
+      setUserStockList(localStorageUserStocks);
+    }
   }, []);
   const addStock = async (stockInfo) => {
     const data = {
