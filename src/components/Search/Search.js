@@ -31,6 +31,7 @@ const Search = (props) => {
         <input
           type="text"
           onChange={(event) => setUserInput(event.target.value)}
+          placeholder="Enter a stock symbol... (ie AAPL, GME)"
         />
         <button onClick={searchHandler}>Search</button>
       </form>
