@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/stock-watcher-app/static/css/main.dd58b6a1.chunk.css",
-    "main.js": "/stock-watcher-app/static/js/main.c2c0426c.chunk.js",
-    "main.js.map": "/stock-watcher-app/static/js/main.c2c0426c.chunk.js.map",
-    "runtime-main.js": "/stock-watcher-app/static/js/runtime-main.932808a8.js",
-    "runtime-main.js.map": "/stock-watcher-app/static/js/runtime-main.932808a8.js.map",
+    "main.css": "/stock-watcher-app/static/css/main.ec160c4e.chunk.css",
+    "main.js": "/stock-watcher-app/static/js/main.5e00517b.chunk.js",
+    "main.js.map": "/stock-watcher-app/static/js/main.5e00517b.chunk.js.map",
+    "runtime-main.js": "/stock-watcher-app/static/js/runtime-main.9e3d3672.js",
+    "runtime-main.js.map": "/stock-watcher-app/static/js/runtime-main.9e3d3672.js.map",
     "static/js/2.c0b15d66.chunk.js": "/stock-watcher-app/static/js/2.c0b15d66.chunk.js",
     "static/js/2.c0b15d66.chunk.js.map": "/stock-watcher-app/static/js/2.c0b15d66.chunk.js.map",
-    "static/js/3.710410c5.chunk.js": "/stock-watcher-app/static/js/3.710410c5.chunk.js",
-    "static/js/3.710410c5.chunk.js.map": "/stock-watcher-app/static/js/3.710410c5.chunk.js.map",
+    "static/js/3.8d8eced4.chunk.js": "/stock-watcher-app/static/js/3.8d8eced4.chunk.js",
+    "static/js/3.8d8eced4.chunk.js.map": "/stock-watcher-app/static/js/3.8d8eced4.chunk.js.map",
     "index.html": "/stock-watcher-app/index.html",
-    "static/css/main.dd58b6a1.chunk.css.map": "/stock-watcher-app/static/css/main.dd58b6a1.chunk.css.map",
+    "static/css/main.ec160c4e.chunk.css.map": "/stock-watcher-app/static/css/main.ec160c4e.chunk.css.map",
     "static/js/2.c0b15d66.chunk.js.LICENSE.txt": "/stock-watcher-app/static/js/2.c0b15d66.chunk.js.LICENSE.txt",
     "static/media/loadingSpinner.c7d9f081.gif": "/stock-watcher-app/static/media/loadingSpinner.c7d9f081.gif"
   },
   "entrypoints": [
-    "static/js/runtime-main.932808a8.js",
+    "static/js/runtime-main.9e3d3672.js",
     "static/js/2.c0b15d66.chunk.js",
-    "static/css/main.dd58b6a1.chunk.css",
-    "static/js/main.c2c0426c.chunk.js"
+    "static/css/main.ec160c4e.chunk.css",
+    "static/js/main.5e00517b.chunk.js"
   ]
 }
