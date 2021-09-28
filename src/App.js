@@ -22,7 +22,6 @@ function App() {
     const localStorageUserStocks = JSON.parse(
       localStorage.getItem("userStocks")
     );
-    console.log(localStorageUserStocks);
     if (localStorageUserStocks === null) {
       // set value so empty array checking on stocklistcontainer works
       setUserStockList([]);
@@ -35,31 +34,31 @@ function App() {
       stockName: stockInfo.stockName,
       stockPrice: stockInfo.stockPrice,
     };
+    if (userStockList.length > 4) {
+      alert("Maximum number of stocks added!");
+    } else if (
+      // check for duplicates
+      userStockList.some(
+        (stock) =>
+          stock.stockName.description === stockInfo.stockName.description
+      )
+    ) {
+      alert("Stock has already been added!");
+    } else {
+      // add results obj to state array
+      setUserStockList((prevState) => {
+        let updatedStockList = [...prevState];
 
-    // add results obj to state array
-    setUserStockList((prevState) => {
-      let updatedStockList = [...prevState];
-
-      // duplicate checking code
-      if (
-        updatedStockList.some(
-          (stock) =>
-            stock.stockName.description === stockInfo.stockName.description
-        )
-      ) {
-        console.log("stock already added");
-      } else {
         updatedStockList.unshift(data);
-      }
-      localStorage.setItem("userStocks", JSON.stringify(updatedStockList));
 
-      return updatedStockList;
-    });
+        localStorage.setItem("userStocks", JSON.stringify(updatedStockList));
+
+        return updatedStockList;
+      });
+    }
   };
 
   const removeStock = async (stockIdToRemove) => {
-    console.log(userStockList);
-
     setUserStockList((prevState) => {
       let updatedStockList = [...prevState];
       updatedStockList = updatedStockList.filter(

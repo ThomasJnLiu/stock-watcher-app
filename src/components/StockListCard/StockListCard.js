@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./StockListCard.module.css";
 
 const StockListCard = (props) => {
-  console.log(props);
   return (
     <li className={classes["stock-list-card"]}>
       <div className={classes["basic-info"]}>
